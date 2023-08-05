@@ -1,25 +1,24 @@
+require('dotenv').config();
 const express=require('express');
 const mongoose=require('mongoose');
+const productRoutes =require ('./routes/productRoutes');
+
+const PORT=process.env.PORT
+const MONGO_URL=process.env.MONGO_URL
 
 const app=express();
 
-//routes
-app.get('/',(req,res)=>{
-    res.send('Hello...')
-})
-app.get('/view',(req,res)=>{
-    res.send('Hello views...')
-})
+app.use(express.json())
+app.use('/api/products',productRoutes)
 
-app.listen(3000,()=>{
-    console.log("The API is running on port 3000")
-})
-
-/*mongoose.
-connect('mongodb+srv://dimatata01:Dki.38690862@cluster0.vhjqqgo.mongodb.net/Node-API?retryWrites=true&w=majority')
+mongoose.
+connect(MONGO_URL)
 .then(()=>{
    // res.send("Connection successful")
-    console.log("Connection successful")
+    console.log("Database connection successful")
+    app.listen(PORT,()=>{
+    console.log(`The API is running on port ${PORT}`)
+})
 }).catch((error)=>{
     console.log(error)
-})*/
+})
