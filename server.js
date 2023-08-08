@@ -2,6 +2,7 @@ require('dotenv').config();
 const express=require('express');
 const mongoose=require('mongoose');
 const productRoutes =require ('./routes/productRoutes');
+const userRoute=require('./routes/userRoute')
 const errorMiddleware=require('./middleware/errorMiddleware')
 const cors = require('cors')
 
@@ -19,6 +20,7 @@ var corsOptions = {
 //app.use(cors(corsOptions))
 app.use(express.json())
 app.use('/api/products',productRoutes)
+app.use('/user',userRoute)
 
 app.get('/',(req,res)=>{
     throw new Error (`Fake error`)
