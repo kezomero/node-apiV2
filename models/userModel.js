@@ -16,6 +16,19 @@ const userSchema=mongoose.Schema(
     }
 );
 
+//validation start
+userSchema.statics.isEmailInUse =async function(email){
+    if(!email) throw new Error('No Email')
+    try {
+        const user=await this.findOne({email})
+        if(user) return false
+         return true
+    } catch (error) {
+        return false
+    }
+}
+//validation end
+
 const User=mongoose.model('User',userSchema);
 
 module.exports=User;
